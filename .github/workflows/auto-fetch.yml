@@ -26,6 +26,9 @@ jobs:
     - name: Run script
       run: python nifty50.py
 
+    - name: List files
+      run: ls -lah
+
     - name: Commit & Push updated CSV
       run: |
         git config --global user.name "github-actions"
