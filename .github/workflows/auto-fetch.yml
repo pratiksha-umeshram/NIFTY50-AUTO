@@ -24,7 +24,7 @@ jobs:
         pip install requests pandas yfinance
 
     - name: Run script
-      run: python fetch_nifty.py
+      run: python nifty50.py
 
     - name: Commit & Push updated CSV
       run: |
