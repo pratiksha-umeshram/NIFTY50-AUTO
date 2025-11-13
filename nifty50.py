@@ -58,7 +58,6 @@ def enrich_volume(df):
         except:
             pass
 
-    # merge
     df["Volume"] = df["Symbol"].map(volumes)
     return df
 
@@ -69,11 +68,17 @@ def save_history(df):
     if os.path.exists(file_path):
         old = pd.read_csv(file_path)
         df = pd.concat([old, df], ignore_index=True)
+    else:
+        df = df
 
+    # 🔥 REMOVE DUPLICATES (MOST IMPORTANT)
+    df.drop_duplicates(subset=["Date", "Symbol"], keep="last", inplace=True)
+
+    # Save CSV
     df.to_csv(file_path, index=False)
     print(f"Saved to {file_path}")
 
-    # also save JSON for Power BI cloud refresh
+    # Save JSON for Power BI cloud refresh
     df.to_json("nifty50.json", orient="records")
     print("Saved JSON for cloud access")
 
